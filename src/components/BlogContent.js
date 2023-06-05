@@ -1,19 +1,25 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 
-export default function BlogContent({ blog }) {
+export default function BlogContent({ route }) {
+  const { blog } = route.params;
+
   return (
     <TouchableOpacity style={styles.container}>
       <View style={styles.author}>
         <Image
           style={styles.dp}
-          source={require("../../assets/icon.png")}
+          source={require("../../assets/favicon.png")}
           resizeMode="contain"
         />
-        <Text style={styles.name}>{blog.username}</Text>
-        <Text style={styles.timestamp}>{blog.timestamp}</Text>
+        <View style={styles.nameContainer}>
+          <Text style={styles.name}>{blog.username}</Text>
+        </View>
+        <View style={styles.timestampContainer}>
+          <Text style={styles.timestamp}>{blog.timestamp}</Text>
+        </View>
       </View>
-      <Text style={styles.title} numberOfLines={3}>{blog.title}</Text>
-      <Text>{blog.content}</Text>
+      <Text style={styles.title}>{blog.title}</Text>
+      <Text style={styles.content}>{blog.content}</Text>
     </TouchableOpacity>
   );
 }
@@ -28,15 +34,14 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 16,
-    alignSelf: 'center',
   },
   title: {
     fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: 30,
+    marginBottom: 15,
   },
   timestamp: {
     color: 'grey',
-    alignSelf: 'flex-end',
   },
   dp: {
     width: 35,
@@ -47,6 +52,15 @@ const styles = StyleSheet.create({
   author: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBelow: 5,
+    marginBottom: 10,
   },
+  nameContainer: {
+    flex: 1,
+  },
+  timestampContainer: {
+    marginLeft: 'auto',
+  },
+  content: {
+    fontSize: 20,
+  }
 });

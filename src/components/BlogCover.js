@@ -1,9 +1,14 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import BlogContent from './BlogContent';
 
-export default function BlogCover({ blog }) {
+export default function BlogCover({ blog, navigation }) {
+
+  const openBlog = () => {
+    navigation.navigate('BlogContent', {blog});
+  }
 
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={openBlog}>
       <View style={styles.author}>
         <Image
           style={styles.dp}
@@ -23,7 +28,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'black',
     margin: 10,
-    padding: 8,
+    padding: 12,
     borderRadius: 10,
   },
   name: {

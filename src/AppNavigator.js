@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, SafeAreaView ,View, Platform } from 'react-native';
+import { StyleSheet, Text, SafeAreaView, View } from 'react-native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import Help from './screens/Help';
 import Chat from './screens/Chat';
 import Blog from './screens/Blog';
@@ -9,8 +10,11 @@ import Community from './screens/Community';
 import Fundraiser from './screens/Fundraiser';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import env from './helper/env';
+import BlogContent from './components/BlogContent';
 
 const Bottom = createBottomTabNavigator();
+const BlogStack = createStackNavigator();
+
 const helpline = env.helpline;
 const chat = env.chat;
 const community = env.community;
@@ -18,6 +22,22 @@ const blog = env.blog;
 const fundraiser = env.fundraiser;
 
 export default function AppNavigator() {
+  const BlogStackScreen = () => {
+    return (
+      <BlogStack.Navigator>
+        <BlogStack.Screen
+          name="Blog"
+          component={Blog}
+          options={{ headerShown: false }}
+        />
+        <BlogStack.Screen
+          name="BlogContent"
+          component={BlogContent}
+        />
+      </BlogStack.Navigator>
+    );
+  };
+
   return (
     <NavigationContainer>
       <Bottom.Navigator
@@ -43,11 +63,11 @@ export default function AppNavigator() {
             return <Ionicons name={iconName} size={size} color={color} />;
           },
           headerStyle: {
-            backgroundColor: 'dodgerblue', 
+            backgroundColor: 'dodgerblue',
           },
           headerTintColor: 'white',
           headerTitleStyle: {
-            fontWeight: 'bold', 
+            fontWeight: 'bold',
           },
         })}
         tabBarOptions={{
@@ -60,7 +80,11 @@ export default function AppNavigator() {
         <Bottom.Screen name={helpline} component={Help} />
         <Bottom.Screen name={chat} component={Chat} />
         <Bottom.Screen name={community} component={Community} />
-        <Bottom.Screen name={blog} component={Blog} />
+        <Bottom.Screen
+          name={blog}
+          component={BlogStackScreen}
+          options={{ headerShown: false }}
+        />
         <Bottom.Screen name={fundraiser} component={Fundraiser} />
       </Bottom.Navigator>
     </NavigationContainer>

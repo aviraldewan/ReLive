@@ -2,10 +2,10 @@ import { FlatList, StyleSheet, Text, View } from 'react-native';
 import BlogCover from '../components/BlogCover';
 import blogs from '../dummy/blog';
 
-export default function Blog() {
+export default function Blog({navigation}) {
 
   const renderBlog = ({item}) => {
-    return <BlogCover blog={item} />
+    return <BlogCover blog={item} navigation={navigation} />
   }
 
   return (
