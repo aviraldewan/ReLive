@@ -1,26 +1,20 @@
-import {StyleSheet, Button} from 'react-native';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import SpecialButton from './SpecialButton';
 
 export default function TalkasSaviour() {
-    
-    return (
-        <Button
-          title="Talk as Saviour"
-          style={styles.button}
-          onPress={() => {
-            
-            console.log("Talk as Saviour clicked");
 
-          }}
-        />
-    );
+  const chatasSaviour = () => {
+    console.log("Chat as Saviour button pressed");
+  };
 
+  return (
+    <View>
+      <SpecialButton
+        title="Chat as Saviour"
+        pressFunction={chatasSaviour}
+        color="tomato"
+      />
+    </View>
+  );
 }
-
-const styles = StyleSheet.create({
-
-    button: {
-        backgroundColor: "white",
-        color: "dodgerblue",
-    },
-
-});
