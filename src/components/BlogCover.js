@@ -7,7 +7,7 @@ export default function BlogCover({ blog }) {
       <View style={styles.author}>
         <Image
           style={styles.dp}
-          source={require("../../assets/icon.png")}
+          source={require("../../assets/favicon.png")}
           resizeMode="contain"
         />
         <Text style={styles.name}>{blog.username}</Text>
