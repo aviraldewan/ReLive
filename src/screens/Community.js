@@ -1,9 +1,20 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
+import BlogCover from '../components/BlogCover';
+import blogs from '../dummy/blog';
 
-export default function Commuinty() {
+export default function Community({navigation}) {
+
+  const renderPost = ({item}) => {
+    return <CommunityCover post={item} navigation={navigation} />
+  }
+
   return (
     <View style={styles.container}>
-      <Text>Hello, World</Text>
+      <FlatList
+        data={posts}
+        renderItem={renderPost}
+        keyExtractor={(post) => post.user_id.toString()}
+      />
     </View>
   );
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, SafeAreaView, View } from 'react-native';
+import { StyleSheet, Text, SafeAreaView, View, TouchableOpacity } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -9,11 +9,13 @@ import Blog from './screens/Blog';
 import Community from './screens/Community';
 import Fundraiser from './screens/Fundraiser';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import env from './helper/env';
+import env from './helper/env'; 
 import BlogContent from './components/BlogContent';
+import BlogPost from './components/BlogPost';
 
 const Bottom = createBottomTabNavigator();
 const BlogStack = createStackNavigator();
+const CommunityStack = createStackNavigator();
 
 const helpline = env.helpline;
 const chat = env.chat;
@@ -22,19 +24,113 @@ const blog = env.blog;
 const fundraiser = env.fundraiser;
 
 export default function AppNavigator() {
-  const BlogStackScreen = () => {
+  const BlogStackScreen = ({ navigation }) => {
     return (
-      <BlogStack.Navigator>
+      <BlogStack.Navigator
+        screenOptions={({ route }) => ({
+          headerStyle: {
+            backgroundColor: 'dodgerblue',
+          },
+          headerTintColor: 'white',
+          headerRight: () => {
+            if (route.name !== 'BlogPost') {
+              return (
+                <TouchableOpacity
+                  style={{ marginRight: 10 }}
+                  onPress={() => navigation.navigate('BlogPost')}
+                >
+                  <View
+                    style={{
+                      backgroundColor: 'dodgerblue',
+                      width: 40,
+                      height: 40,
+                      borderRadius: 20,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      borderWidth: 2,
+                      borderColor: 'white',
+                    }}
+                  >
+                    <Ionicons name="add" size={24} color="white" />
+                  </View>
+                </TouchableOpacity>
+              );
+            }
+            return null;
+          },
+        })}
+      >
         <BlogStack.Screen
-          name="Blog"
+          name="BlogHome"
           component={Blog}
-          options={{ headerShown: false }}
+          options={{ title: 'Blog' }}
         />
         <BlogStack.Screen
           name="BlogContent"
           component={BlogContent}
+          options={{ title: 'Blog Reader' }}
+        />
+        <BlogStack.Screen
+          name="BlogPost"
+          component={BlogPost}
+          options={{ title: 'Post a Blog' }}
         />
       </BlogStack.Navigator>
+    );
+  };
+
+  const CommunityStackScreen = ({ navigation }) => {
+    return (
+      <CommunityStack.Navigator
+        screenOptions={({ route }) => ({
+          headerStyle: {
+            backgroundColor: 'dodgerblue',
+          },
+          headerTintColor: 'white',
+          headerRight: () => {
+            if (route.name !== 'CommunityPost') {
+              return (
+                <TouchableOpacity
+                  style={{ marginRight: 10 }}
+                  onPress={() => navigation.navigate('CommunityPost')}
+                >
+                  <View
+                    style={{
+                      backgroundColor: 'dodgerblue',
+                      width: 40,
+                      height: 40,
+                      borderRadius: 20,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      borderWidth: 2,
+                      borderColor: 'white',
+                    }}
+                  >
+                    <Ionicons name="add" size={24} color="white" />
+                  </View>
+                </TouchableOpacity>
+              );
+            }
+            return null;
+          },
+        })}
+      >
+        <CommunityStack.Screen
+          name="CommunityHome"
+          component={Blog}
+          options={{ title: 'Community' }}
+        />
+        <CommunityStack.Screen
+          name="CommunityContent"
+          component={BlogContent}
+          options={{ title: 'Post Viewer' }}
+        />
+        <CommunityStack.Screen
+          name="CommunityPost"
+          component={BlogPost}
+          options={{ title: 'Share a Post' }}
+        />
+      </CommunityStack.Navigator>
     );
   };
 
@@ -79,7 +175,11 @@ export default function AppNavigator() {
       >
         <Bottom.Screen name={helpline} component={Help} />
         <Bottom.Screen name={chat} component={Chat} />
-        <Bottom.Screen name={community} component={Community} />
+        <Bottom.Screen
+          name={community}
+          component={CommunityStackScreen}
+          options={{ headerShown: false }}
+        />
         <Bottom.Screen
           name={blog}
           component={BlogStackScreen}

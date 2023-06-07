@@ -1,10 +1,11 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
 
 export default function BlogContent({ route }) {
   const { blog } = route.params;
 
   return (
-    <TouchableOpacity style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.author}>
         <Image
           style={styles.dp}
@@ -20,17 +21,15 @@ export default function BlogContent({ route }) {
       </View>
       <Text style={styles.title}>{blog.title}</Text>
       <Text style={styles.content}>{blog.content}</Text>
-    </TouchableOpacity>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    borderWidth: 1,
-    borderColor: 'black',
+    flexGrow: 1,
     margin: 10,
     padding: 8,
-    borderRadius: 10,
   },
   name: {
     fontSize: 16,
@@ -61,6 +60,6 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
   },
   content: {
-    fontSize: 20,
+    fontSize: 18,
   }
 });
