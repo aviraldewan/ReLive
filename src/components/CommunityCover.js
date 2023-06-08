@@ -17,6 +17,15 @@ export default function CommunityCover({ post, navigation }) {
   const updateShare = () => {
     return;
   }
+  const formatLikeCount = (count) => {
+    if (count >= 1000000) {
+      return `${(count / 1000000).toFixed(1)}M`;
+    } else if (count >= 1000) {
+      return `${(count / 1000).toFixed(1)}k`;
+    } else {
+      return count.toString();
+    }
+  };
 
   return (
 
@@ -51,13 +60,16 @@ export default function CommunityCover({ post, navigation }) {
         </View>
        : <View></View> }
        <View style={styles.icons}>
-        <TouchableOpacity onPress={updateLike}>
+       <TouchableOpacity onPress={updateLike}>
+          <View style={{alignItems: 'center', flexDirection: 'row'}}>
             <Ionicons
                 name={like ? 'heart' : 'heart-outline'}
                 size={24}
                 color={like ? 'red' : 'black'}
                 style={styles.icon}
             />
+           <Text style={styles.label}>{formatLikeCount(post.likes.length)}</Text>
+           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={updateShare}>
             <Ionicons
@@ -140,5 +152,9 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginHorizontal: 8,
+  },
+  label: {
+    fontSize: 16,
+    color: 'black',
   },
 });

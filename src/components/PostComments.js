@@ -1,10 +1,13 @@
-import React, {useState} from 'react';
-import {TouchableOpacity, View, Text, StyleSheet, Image, ScrollView } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import {useState} from 'react';
 import Swiper from 'react-native-swiper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-export default function CommunityContent({ route }) {
-  const { post } = route.params;
+export default function PostComments({ post, navigation }) {
+  const openPost = () => {
+    navigation.navigate('CommunityContent', { post });
+  };
 
   const [like, setLike] = useState(false);
 
@@ -14,33 +17,28 @@ export default function CommunityContent({ route }) {
   const updateShare = () => {
     return;
   }
-  
-  const formatLikeCount = (count) => {
-    if (count >= 1000000) {
-      return `${(count / 1000000).toFixed(1)}M`;
-    } else if (count >= 1000) {
-      return `${(count / 1000).toFixed(1)}k`;
-    } else {
-      return count.toString();
-    }
-  };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+
+    <View style={styles.container} >
       <View style={styles.author}>
-        <Image
-          style={styles.dp}
-          source={require('../../assets/favicon.png')}
-          resizeMode="contain"
-        />
-        <View style={styles.nameContainer}>
-          <Text style={styles.name}>{post.username}</Text>
-        </View>
-        <View style={styles.timestampContainer}>
-          <Text style={styles.timestamp}>{post.timestamp}</Text>
-        </View>
+            <Image
+            style={styles.dp}
+            source={require('../../assets/favicon.png')}
+            resizeMode="contain"
+            />
+            <View style={styles.nameContainer}>
+            <Text style={styles.name}>{post.username}</Text>
+            </View>
+            <View style={styles.timestampContainer}>
+            <Text style={styles.timestamp}>{post.timestamp}</Text>
+            </View>
       </View>
-      <Text style={styles.content}>{post.content}</Text>
+      <TouchableOpacity onPress={openPost}>
+      <Text numberOfLines={3} style={styles.content}>
+        {post.content}
+      </Text>
+      </TouchableOpacity>
       {post.image.length ? 
         <View style={styles.carouselContainer}>
             <Swiper showsButtons={true} loop={false}>
@@ -54,15 +52,12 @@ export default function CommunityContent({ route }) {
        : <View></View> }
        <View style={styles.icons}>
         <TouchableOpacity onPress={updateLike}>
-          <View style={{alignItems: 'center', flexDirection: 'row'}}>
             <Ionicons
                 name={like ? 'heart' : 'heart-outline'}
                 size={24}
                 color={like ? 'red' : 'black'}
                 style={styles.icon}
             />
-           <Text style={styles.label}>{formatLikeCount(post.likes.length)}</Text>
-           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={updateShare}>
             <Ionicons
@@ -72,19 +67,23 @@ export default function CommunityContent({ route }) {
                 style={styles.icon}
             />
         </TouchableOpacity>
+        <TouchableOpacity onPress={openPost}>
             <Ionicons
                 name="chatbubble-ellipses-outline"
                 size={24}
                 color="black"
                 style={styles.icon}
             />
+        </TouchableOpacity>
        </View>
-    </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    borderWidth: 1,
+    borderColor: 'dodgerblue',
     margin: 10,
     padding: 12,
     borderRadius: 10,
@@ -120,7 +119,7 @@ const styles = StyleSheet.create({
   },
   carouselContainer: {
     marginTop: 5,
-    height: 300,
+    height: 200,
   },
   imageContainer: {
     flex: 1,
@@ -141,9 +140,5 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginHorizontal: 8,
-  },
-  label: {
-    fontSize: 16,
-    color: 'black',
   },
 });
