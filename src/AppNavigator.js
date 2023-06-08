@@ -12,6 +12,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import env from './helper/env'; 
 import BlogContent from './components/BlogContent';
 import BlogPost from './components/BlogPost';
+import CommunityContent from './components/CommunityContent';
+import CommunityPost from './components/CommunityPost';
 
 const Bottom = createBottomTabNavigator();
 const BlogStack = createStackNavigator();
@@ -122,12 +124,12 @@ export default function AppNavigator() {
         />
         <CommunityStack.Screen
           name="CommunityContent"
-          component={BlogContent}
+          component={CommunityContent}
           options={{ title: 'Post Viewer' }}
         />
         <CommunityStack.Screen
           name="CommunityPost"
-          component={BlogPost}
+          component={CommunityPost}
           options={{ title: 'Share a Post' }}
         />
       </CommunityStack.Navigator>
