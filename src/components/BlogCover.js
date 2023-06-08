@@ -26,7 +26,7 @@ export default function BlogCover({ blog, navigation }) {
 const styles = StyleSheet.create({
   container: {
     borderWidth: 1,
-    borderColor: 'black',
+    borderColor: 'dodgerblue',
     margin: 10,
     padding: 12,
     borderRadius: 10,
