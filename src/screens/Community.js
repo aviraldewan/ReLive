@@ -1,6 +1,6 @@
 import { FlatList, StyleSheet, Text, View } from 'react-native';
-import BlogCover from '../components/BlogCover';
-import blogs from '../dummy/blog';
+import CommunityCover from '../components/CommunityCover';
+import posts from '../dummy/posts';
 
 export default function Community({navigation}) {
 

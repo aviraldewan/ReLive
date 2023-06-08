@@ -117,7 +117,7 @@ export default function AppNavigator() {
       >
         <CommunityStack.Screen
           name="CommunityHome"
-          component={Blog}
+          component={Community}
           options={{ title: 'Community' }}
         />
         <CommunityStack.Screen
