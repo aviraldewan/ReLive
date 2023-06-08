@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {TouchableOpacity, View, Text, StyleSheet, Image, ScrollView } from 'react-native';
 import ImageCarousel from './ImageCarousel';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import PostCreater from './PostCreater';
 
 export default function CommunityContent({ route }) {
   const { post } = route.params;
@@ -27,20 +28,7 @@ export default function CommunityContent({ route }) {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.author}>
-        <Image
-          style={styles.dp}
-          source={require('../../assets/favicon.png')}
-          resizeMode="contain"
-        />
-        <View style={styles.nameContainer}>
-          <Text style={styles.name}>{post.username}</Text>
-        </View>
-        <View style={styles.timestampContainer}>
-          <Text style={styles.timestamp}>{post.timestamp}</Text>
-        </View>
-      </View>
-      <Text style={styles.content}>{post.content}</Text>
+        <PostCreater post={post} type='full' />
       {post.image.length ? 
         <ImageCarousel post={post} />
        : <View></View> }
@@ -80,35 +68,6 @@ const styles = StyleSheet.create({
     margin: 10,
     padding: 12,
     borderRadius: 10,
-  },
-  name: {
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  timestamp: {
-    color: 'grey',
-  },
-  dp: {
-    width: 35,
-    height: 35,
-    borderRadius: 50,
-    marginRight: 10,
-    borderColor: 'dodgerblue',
-    borderWidth: 1,
-  },
-  author: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 5,
-  },
-  nameContainer: {
-    flex: 1,
-  },
-  timestampContainer: {
-    marginLeft: 'auto',
-  },
-  content: {
-    fontSize: 16,
   },
   icons: {
     flexDirection: 'row',

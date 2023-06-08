@@ -3,11 +3,9 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import {useState} from 'react';
 import ImageCarousel from './ImageCarousel';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import PostCreater from './PostCreater';
 
 export default function CommunityCover({ post, navigation }) {
-  const openPost = () => {
-    navigation.navigate('CommunityContent', { post });
-  };
 
   const [like, setLike] = useState(false);
 
@@ -17,6 +15,9 @@ export default function CommunityCover({ post, navigation }) {
   const updateShare = () => {
     return;
   }
+  const openPost = () => {
+    navigation.navigate('CommunityContent', { post });
+  };
   const formatLikeCount = (count) => {
     if (count >= 1000000) {
       return `${(count / 1000000).toFixed(1)}M`;
@@ -30,24 +31,7 @@ export default function CommunityCover({ post, navigation }) {
   return (
 
     <View style={styles.container} >
-      <View style={styles.author}>
-            <Image
-            style={styles.dp}
-            source={require('../../assets/favicon.png')}
-            resizeMode="contain"
-            />
-            <View style={styles.nameContainer}>
-            <Text style={styles.name}>{post.username}</Text>
-            </View>
-            <View style={styles.timestampContainer}>
-            <Text style={styles.timestamp}>{post.timestamp}</Text>
-            </View>
-      </View>
-      <TouchableOpacity onPress={openPost}>
-      <Text numberOfLines={3} style={styles.content}>
-        {post.content}
-      </Text>
-      </TouchableOpacity>
+      <PostCreater post={post} type='cover' onPress={openPost} />
       {post.image.length ? 
         <ImageCarousel post={post} />
        : <View></View> }
