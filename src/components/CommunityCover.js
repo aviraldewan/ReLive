@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import {useState} from 'react';
-import Swiper from 'react-native-swiper';
+import ImageCarousel from './ImageCarousel';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default function CommunityCover({ post, navigation }) {
@@ -49,15 +49,7 @@ export default function CommunityCover({ post, navigation }) {
       </Text>
       </TouchableOpacity>
       {post.image.length ? 
-        <View style={styles.carouselContainer}>
-            <Swiper showsButtons={true} loop={false}>
-            {post.image.map((image, index) => (
-                <View style={styles.imageContainer} key={index}>
-                <Image source={image} style={styles.image} resizeMode="contain" />
-                </View>
-            ))}
-            </Swiper>
-        </View>
+        <ImageCarousel post={post} />
        : <View></View> }
        <View style={styles.icons}>
        <TouchableOpacity onPress={updateLike}>
@@ -128,22 +120,6 @@ const styles = StyleSheet.create({
   },
   content: {
     fontSize: 16,
-  },
-  carouselContainer: {
-    marginTop: 5,
-    height: 200,
-  },
-  imageContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  image: {
-    width: '100%',
-    height: '100%',
-    borderRadius: 10,
-    borderColor: 'dodgerblue',
-    borderWidth: 1,
   },
   icons: {
     flexDirection: 'row',
