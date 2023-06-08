@@ -14,7 +14,7 @@ const posts = [
         user_id: 2,
         dp: "../../assets/favicon.png",
         username: 'adad',
-        content: 'exrdctfgbhjnmkcfvgbhjnmk  \n dtcfvgybhnj',
+        content: 'exrdctfgbhjnmkcfvgbhjnmk  \n dtcfvgybhnj \n ahdgsgsad \n oahdsnosj',
         image: [],
         timestamp: '06/06/23', 
         likes: [],

@@ -46,6 +46,8 @@ const styles = StyleSheet.create({
     width: 35,
     height: 35,
     borderRadius: 50,
+    borderColor: 'dodgerblue',
+    borderWidth: 1,
     marginRight: 10,
   },
   author: {

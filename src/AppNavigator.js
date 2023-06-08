@@ -130,7 +130,7 @@ export default function AppNavigator() {
         <CommunityStack.Screen
           name="CommunityPost"
           component={CommunityPost}
-          options={{ title: 'Share a Post' }}
+          options={{ title: 'Create a Post' }}
         />
       </CommunityStack.Navigator>
     );

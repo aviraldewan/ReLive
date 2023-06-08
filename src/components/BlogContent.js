@@ -47,6 +47,8 @@ const styles = StyleSheet.create({
     height: 35,
     borderRadius: 50,
     marginRight: 10,
+    borderColor: 'dodgerblue',
+    borderWidth: 1,
   },
   author: {
     flexDirection: 'row',
