@@ -176,7 +176,7 @@ export default function AppNavigator() {
           },
         })}
         tabBarOptions={{
-          activeTintColor: 'black',
+          activeTintColor: 'dodgerblue',
           inactiveTintColor: 'grey',
           labelStyle: { paddingBottom: 10, fontSize: 10 },
           style: { padding: 10, height: 70 },

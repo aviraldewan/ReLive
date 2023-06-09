@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, TextInput, ScrollView, Image, Button } from 'react-native';
+import { StyleSheet, View, TextInput, ScrollView, Image, Text } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import * as MediaLibrary from 'expo-media-library';
 import SpecialButton from './SpecialButton';
 import blogs from '../dummy/blog';
 import posts from '../dummy/posts';
 
 export default function Input({ navigation, route, type }) {
-
   const [post, setPost] = useState('');
   const [title, setTitle] = useState('');
   const [images, setImages] = useState([]);
@@ -17,11 +17,9 @@ export default function Input({ navigation, route, type }) {
     if (text.trim().length > 20000 && (type === 'Blog' || type === 'Fundraiser')) {
       alert('Max 20000 characters are allowed');
       return;
-    }
-    else if (text.trim().length > 600 && (type === 'Community' || type === 'Comment'))
-    {
-        alert('Max 600 characters are allowed');
-        return;
+    } else if (text.trim().length > 600 && (type === 'Community' || type === 'Comment')) {
+      alert('Max 600 characters are allowed');
+      return;
     }
     setPost(text);
   };
@@ -44,20 +42,19 @@ export default function Input({ navigation, route, type }) {
     try {
       const result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: true,
-        aspect: [1, 1],
+        allowsMultipleSelection: true,
         quality: 1,
-        multiple: true,
       });
   
-      if (!result.cancelled) {
-        setImages(result.uri);
+      if (!result.cancelled && result.assets.length > 0) {
+        const selectedImages = result.assets.map((asset) => asset.uri);
+        setImages(selectedImages);
       }
     } catch (error) {
       console.log('Error picking images:', error);
+      alert('Error in picking images. Please try again');
     }
   };
-  
 
   const submitPost = () => {
     if ((type === 'Blog' || type === 'Fundraiser') && title.trim() === '') {
@@ -102,7 +99,7 @@ export default function Input({ navigation, route, type }) {
       alert(`Your comment is ${post}`);
     }
 
-    if (type === 'Community') type += 'Post';
+    if (type === 'Community') type += ' Post';
     alert(`Your ${type} is posted!`);
 
     navigation.goBack();
@@ -110,7 +107,7 @@ export default function Input({ navigation, route, type }) {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {type !== 'Comment' ? (
+      {(type === 'Fundraiser' || type === 'Blog') ? (
         <TextInput
           style={styles.titleContainer}
           value={title}
@@ -129,12 +126,15 @@ export default function Input({ navigation, route, type }) {
         scrollEnabled={true}
       />
       {type === 'Fundraiser' || type === 'Community' ? (
-        <View>
+        <>
         <SpecialButton title="Select Images" pressFunction={selectImages} />
-        {images.map((imageUri) => (
-          <Image key={imageUri} source={{ uri: imageUri }} style={styles.image} />
-        ))}
-      </View>      
+        <ScrollView contentContainerStyle={styles.imageContainer}>
+  {images.map((imageUri) => (
+    <Image key={imageUri} source={{ uri: imageUri }} style={styles.image} />
+  ))}
+</ScrollView>
+
+        </>
       ) : null}
       <View style={styles.postBtn}>
         <SpecialButton title="Post" pressFunction={submitPost} color="dodgerblue" />
@@ -150,10 +150,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: '5%',
   },
+  imageContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    paddingHorizontal: 10,
+  },
   image: {
     width: 200,
     height: 200,
     marginTop: 20,
+    borderColor: 'dodgerblue',
+    borderWidth: 1,
   },
   titleContainer: {
     width: '70%',
@@ -161,14 +170,14 @@ const styles = StyleSheet.create({
     padding: '2%',
     borderWidth: 1,
     borderRadius: 10,
-    borderColor: 'black',
+    borderColor: 'dodgerblue',
   },
   post: {
     width: '70%',
     height: '50%',
     borderWidth: 2,
     borderRadius: 10,
-    borderColor: 'black',
+    borderColor: 'dodgerblue',
     padding: '2%',
   },
   postBtn: {

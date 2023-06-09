@@ -9,7 +9,7 @@ export default function ImageCarousel({post}) {
             <Swiper showsButtons={true} loop={false}>
             {post.image.map((image, index) => (
                 <View style={styles.imageContainer} key={index}>
-                <Image source={image} style={styles.image} resizeMode="contain" />
+                <Image source={{ uri: image }} style={styles.image} resizeMode="contain" />
                 </View>
             ))}
             </Swiper>
