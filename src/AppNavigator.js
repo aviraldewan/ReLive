@@ -14,6 +14,8 @@ import BlogContent from './components/BlogContent';
 import BlogPost from './components/BlogPost';
 import CommunityContent from './components/CommunityContent';
 import CommunityPost from './components/CommunityPost';
+import Input from './components/Input';
+import AddComment from './components/AddComment';
 
 const Bottom = createBottomTabNavigator();
 const BlogStack = createStackNavigator();
@@ -131,6 +133,11 @@ export default function AppNavigator() {
           name="CommunityPost"
           component={CommunityPost}
           options={{ title: 'Create a Post' }}
+        />
+        <CommunityStack.Screen
+          name="AddComment"
+          component={AddComment}
+          options={{ title: 'Community' }}
         />
       </CommunityStack.Navigator>
     );

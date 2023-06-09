@@ -1,18 +1,10 @@
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View, TextInput, ScrollView } from 'react-native';
+import Input from './Input';
 
-export default function CommunityPost() {
+export default function CommunityPost({navigation, route}) {
+
   return (
-    <View style={styles.container}>
-      <Text>Coming Soon...</Text>
-    </View>
+    <Input navigation={navigation} route={route} type='Community' />
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

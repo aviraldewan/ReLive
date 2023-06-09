@@ -3,13 +3,13 @@ import { FlatList, View, Text, StyleSheet, useWindowDimensions, TouchableOpacity
 import Comment from './Comment';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-export default function PostComments({ comments }) {
+export default function PostComments({ comments, navigation }) {
   const renderComment = ({ item }) => {
     return <Comment comment={item} />;
   };
 
   const createComment = () => {
-    return;
+    navigation.navigate('AddComment', {navigation:navigation, type:'Comment'});
   }
 
   const window = useWindowDimensions();

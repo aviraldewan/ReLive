@@ -5,7 +5,7 @@ import PostIcons from './PostIcons';
 import PostCreater from './PostCreater';
 import PostComments from './PostComments';
 
-export default function CommunityContent({ route }) {
+export default function CommunityContent({ route, navigation }) {
   const { post } = route.params;
   console.log(post.comments);
 
@@ -19,7 +19,7 @@ export default function CommunityContent({ route }) {
           <PostIcons post={post} type='full' />
           </View>
       <View style={styles.commentsContainer}>
-        <PostComments comments={post.comments} />
+        <PostComments comments={post.comments} navigation={navigation} />
       </View>
       </ScrollView>
       </View>
