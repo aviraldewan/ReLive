@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
       },
       image: {
-        width: '100%',
+        width: '70%',
         height: '100%',
         borderRadius: 10,
         borderColor: 'dodgerblue',

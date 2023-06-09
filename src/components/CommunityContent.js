@@ -13,13 +13,15 @@ export default function CommunityContent({ route }) {
     <View style={styles.container}>
       <View style={styles.postContainer}>
         <ScrollView contentContainerStyle={styles.postContent}>
+          <View style={styles.containerSeperator}>
           <PostCreater post={post} type='full' />
           {post.image.length ? <ImageCarousel post={post} /> : null}
           <PostIcons post={post} type='full' />
-        </ScrollView>
-      </View>
+          </View>
       <View style={styles.commentsContainer}>
         <PostComments comments={post.comments} />
+      </View>
+      </ScrollView>
       </View>
     </View>
   );
@@ -29,9 +31,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  postContainer: {
+  containerSeperator: {
     borderBottomWidth: 1,
     borderBottomColor: 'dodgerblue',
+  },
+  postContainer: {
     padding: 10,
     flexGrow: 0,
     flexShrink: 1,

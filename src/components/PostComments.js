@@ -44,6 +44,6 @@ const styles = StyleSheet.create({
   },
   comments: {
     marginLeft: 10,
-    marginBottom: 100, // Adjust the value to give extra padding at the bottom
+    // marginBottom: 100, // Adjust the value to give extra padding at the bottom
   },
 });

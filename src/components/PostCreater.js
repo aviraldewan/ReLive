@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, View, Text, StyleSheet, Image } from 'react-native';
+import { TouchableOpacity, View, Text, StyleSheet, Image, ScrollView } from 'react-native';
 
 export default function PostCreater({ post, type, onPress }) {
   return (
@@ -18,7 +18,9 @@ export default function PostCreater({ post, type, onPress }) {
         </View>
       </View>
       {type === 'full' ? (
-        <Text style={styles.content}>{post.content}</Text>
+        <View style={styles.content}>
+          <Text>{post.content}</Text>
+        </View>
       ) : (
         <TouchableOpacity onPress={onPress}>
           <Text numberOfLines={3} style={styles.content}>

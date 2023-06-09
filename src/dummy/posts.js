@@ -80,7 +80,7 @@ const posts = [
         user_id: 8,
         dp: "../../assets/favicon.png",
         username: 'uygihj',
-        content: 'hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n',
+        content: 'hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello world\n',
         image: [require("../../assets/favicon.png"),require("../../assets/favicon.png")],
         timestamp: '06/06/23', 
         likes: [],
