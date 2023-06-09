@@ -7,7 +7,7 @@ const posts = [
         image: [],
         timestamp: '06/06/23',
         likes: ['gfd','gdf'],
-        comments: [],
+        comments: [{dp: "../../assets/favicon.png", username: 'adfa', content: 'Hello, nice post \n love you', user_id: 1, timestamp: '08/06/23'}],
         shares: 3,
     },
     {
@@ -80,11 +80,11 @@ const posts = [
         user_id: 8,
         dp: "../../assets/favicon.png",
         username: 'uygihj',
-        content: '',
+        content: 'hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n',
         image: [require("../../assets/favicon.png"),require("../../assets/favicon.png")],
         timestamp: '06/06/23', 
         likes: [],
-        comments: [],
+        comments: [{dp: "../../assets/favicon.png",username: 'adfa', content: 'dope shot \n love you', user_id: 1, timestamp: '08/06/23'},{dp: "../../assets/favicon.png",username: 'adfa', content: 'Hello, nice post \n love you \n great!', user_id: 2, timestamp: '08/06/23'},{dp: "../../assets/favicon.png",username: 'adfa', content: 'dope shot \n love you', user_id: 3, timestamp: '08/06/23'},{dp: "../../assets/favicon.png",username: 'adfa', content: 'Hello, nice post \n love you \n great!', user_id: 4, timestamp: '08/06/23'},{dp: "../../assets/favicon.png",username: 'adfa', content: 'dope shot \n love you', user_id: 5, timestamp: '08/06/23'},{dp: "../../assets/favicon.png",username: 'adfa', content: 'Hello, nice post \n love you \n great!', user_id: 6, timestamp: '08/06/23'},{dp: "../../assets/favicon.png",username: 'adfa', content: 'dope shot \n love you', user_id: 7, timestamp: '08/06/23'},{dp: "../../assets/favicon.png",username: 'adfa', content: 'Hello, nice post \n love you \n great!', user_id: 8, timestamp: '08/06/23'}],
         shares: 10000000,
     },
     {
