@@ -16,10 +16,13 @@ import CommunityContent from './components/CommunityContent';
 import CommunityPost from './components/CommunityPost';
 import Input from './components/Input';
 import AddComment from './components/AddComment';
+import FundraiserPost from './components/FundraiserPost';
+import FundraiserContent from './components/FundraiserContent';
 
 const Bottom = createBottomTabNavigator();
 const BlogStack = createStackNavigator();
 const CommunityStack = createStackNavigator();
+const FundraiserStack = createStackNavigator();
 
 const helpline = env.helpline;
 const chat = env.chat;
@@ -137,16 +140,76 @@ export default function AppNavigator() {
         <CommunityStack.Screen
           name="AddComment"
           component={AddComment}
-          options={{ title: 'Community' }}
+          options={{ title: 'Community Comment' }}
         />
       </CommunityStack.Navigator>
+    );
+  };
+
+  const FundraiserStackScreen = ({ navigation }) => {
+    return (
+      <FundraiserStack.Navigator
+        screenOptions={({ route }) => ({
+          headerStyle: {
+            backgroundColor: 'dodgerblue',
+          },
+          headerTintColor: 'white',
+          headerRight: () => {
+            if (route.name !== 'FundraiserPost') {
+              return (
+                <TouchableOpacity
+                  style={{ marginRight: 10 }}
+                  onPress={() => navigation.navigate('FundraiserPost')}
+                >
+                  <View
+                    style={{
+                      backgroundColor: 'dodgerblue',
+                      width: 40,
+                      height: 40,
+                      borderRadius: 20,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      borderWidth: 2,
+                      borderColor: 'white',
+                    }}
+                  >
+                    <Ionicons name="add" size={24} color="white" />
+                  </View>
+                </TouchableOpacity>
+              );
+            }
+            return null;
+          },
+        })}
+      >
+        <FundraiserStack.Screen
+          name="FundraiserHome"
+          component={Fundraiser}
+          options={{ title: 'Fundraiser' }}
+        />
+        <FundraiserStack.Screen
+          name="FundraiserContent"
+          component={FundraiserContent}
+          options={{ title: 'Fundraiser Viewer' }}
+        />
+        <FundraiserStack.Screen
+          name="FundraiserPost"
+          component={FundraiserPost}
+          options={{ title: 'Organize a Fundraiser' }}
+        />
+        <FundraiserStack.Screen
+          name="AddComment"
+          component={AddComment}
+          options={{ title: 'Fundraiser Comment' }}
+        />
+      </FundraiserStack.Navigator>
     );
   };
 
   return (
     <NavigationContainer>
       <Bottom.Navigator
-        initialRouteName={helpline}
+        initialRouteName={blog}
         screenOptions={({ route }) => ({
           tabBarLabel: route.name,
           tabBarIcon: ({ focused, color, size }) => {
@@ -194,7 +257,11 @@ export default function AppNavigator() {
           component={BlogStackScreen}
           options={{ headerShown: false }}
         />
-        <Bottom.Screen name={fundraiser} component={Fundraiser} />
+        <Bottom.Screen
+          name={fundraiser}
+          component={FundraiserStackScreen}
+          options={{ headerShown: false }}
+        />
       </Bottom.Navigator>
     </NavigationContainer>
   );

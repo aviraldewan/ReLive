@@ -7,23 +7,21 @@ import PostComments from './PostComments';
 
 export default function CommunityContent({ route, navigation }) {
   const { post } = route.params;
-  console.log(post.comments);
+  // console.log(post.comments);
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.postContainer}>
-        <ScrollView contentContainerStyle={styles.postContent}>
-          <View style={styles.containerSeperator}>
+        <View style={styles.containerSeperator}>
           <PostCreater post={post} type='full' />
           {post.image.length ? <ImageCarousel post={post} /> : null}
           <PostIcons post={post} type='full' />
-          </View>
-      <View style={styles.commentsContainer}>
-        <PostComments comments={post.comments} navigation={navigation} />
+        </View>
+        <View style={styles.commentsContainer}>
+          <PostComments comments={post.comments} navigation={navigation} />
+        </View>
       </View>
-      </ScrollView>
-      </View>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -37,11 +35,6 @@ const styles = StyleSheet.create({
   },
   postContainer: {
     padding: 10,
-    flexGrow: 0,
-    flexShrink: 1,
-  },
-  postContent: {
-    paddingBottom: 10,
   },
   commentsContainer: {
     flex: 1,

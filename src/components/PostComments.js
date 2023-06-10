@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FlatList, View, Text, StyleSheet, useWindowDimensions, TouchableOpacity } from 'react-native';
+import { FlatList, View, Text, StyleSheet, useWindowDimensions, TouchableOpacity, ScrollView } from 'react-native';
 import Comment from './Comment';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 

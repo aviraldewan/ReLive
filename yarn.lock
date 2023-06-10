@@ -2486,6 +2486,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-native-community/datetimepicker@npm:6.7.3":
+  version: 6.7.3
+  resolution: "@react-native-community/datetimepicker@npm:6.7.3"
+  dependencies:
+    invariant: ^2.2.4
+  checksum: ad08d786aafe8c33135c5f2bdc227d54970bf41ee9f9876a7d4ed365733f02c6e4fb2b8df8f0c45702e5aee43843fe78b7c04c1ff7a1862cde48789e68b9d355
+  languageName: node
+  linkType: hard
+
 "@react-native/assets@npm:1.0.0":
   version: 1.0.0
   resolution: "@react-native/assets@npm:1.0.0"
@@ -4245,9 +4254,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.4.411":
-  version: 1.4.425
-  resolution: "electron-to-chromium@npm:1.4.425"
-  checksum: 1ec2e80601eb49982c51f562f74dc9fa1a80f3006c7d508f3bc37d2d12c726df99ff60d7f013e38c374ae81414e0b76d5e7a97f406cdea8b5e8e3dfb51c23f72
+  version: 1.4.427
+  resolution: "electron-to-chromium@npm:1.4.427"
+  checksum: 5f8493e6071bed2f34c701a62bd81453e41cee7ab9bda0f93b6039d1456d15f9aa6a4b59eda4e5afe5e035311b6b9043c7c9275c631c690bd202ae3226a1df66
   languageName: node
   linkType: hard
 
@@ -6973,6 +6982,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"moment@npm:^2.22.0":
+  version: 2.29.4
+  resolution: "moment@npm:2.29.4"
+  checksum: 0ec3f9c2bcba38dc2451b1daed5daded747f17610b92427bebe1d08d48d8b7bdd8d9197500b072d14e326dd0ccf3e326b9e3d07c5895d3d49e39b6803b76e80e
+  languageName: node
+  linkType: hard
+
 "ms@npm:2.0.0":
   version: 2.0.0
   resolution: "ms@npm:2.0.0"
@@ -7882,6 +7898,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-datepicker@npm:^1.7.2":
+  version: 1.7.2
+  resolution: "react-native-datepicker@npm:1.7.2"
+  dependencies:
+    moment: ^2.22.0
+  checksum: 41b3a6b28b8b5d618e6d487b7268b233f9e3815d805ac90e3c0e5b1640ec3555e155f09b3833795d4f900bf5b9cf6fa4759f155c39130773864fbdf1413247d8
+  languageName: node
+  linkType: hard
+
 "react-native-fast-image@npm:^8.6.3":
   version: 8.6.3
   resolution: "react-native-fast-image@npm:8.6.3"
@@ -7921,6 +7946,18 @@ __metadata:
   peerDependencies:
     react-native: ">=0.40.0"
   checksum: f2f2a4ea8ae1dd8c242361f391dc694ef93a651314efe538ecb5e382911f82595cd0f2337ac5cd5225acd740899a90a1d65a8d9e1f02a66232ac5273c33fd550
+  languageName: node
+  linkType: hard
+
+"react-native-modal-datetime-picker@npm:^15.0.1":
+  version: 15.0.1
+  resolution: "react-native-modal-datetime-picker@npm:15.0.1"
+  dependencies:
+    prop-types: ^15.7.2
+  peerDependencies:
+    "@react-native-community/datetimepicker": ">=6.7.0"
+    react-native: ">=0.65.0"
+  checksum: 22655acfadf586ddbbbcc9dc1b0712308bdd92b9b9328fd5c419c1c0c0994353ee02ac2027fdc2caa20d83870795133c4556ebab9d31405c08137b18ae6f13a1
   languageName: node
   linkType: hard
 
@@ -8167,6 +8204,7 @@ __metadata:
   resolution: "relive@workspace:."
   dependencies:
     "@babel/core": ^7.20.0
+    "@react-native-community/datetimepicker": 6.7.3
     "@react-navigation/bottom-tabs": ^6.5.7
     "@react-navigation/native": ^6.1.6
     "@react-navigation/stack": ^6.3.16
@@ -8178,9 +8216,11 @@ __metadata:
     react: 18.2.0
     react-native: 0.71.8
     react-native-config: ^1.5.1
+    react-native-datepicker: ^1.7.2
     react-native-fast-image: ^8.6.3
     react-native-gesture-handler: ^2.10.2
     react-native-image-crop-picker: ^0.40.0
+    react-native-modal-datetime-picker: ^15.0.1
     react-native-safe-area-context: ^4.5.3
     react-native-screens: ^3.20.0
     react-native-status-bar-height: ^2.6.0

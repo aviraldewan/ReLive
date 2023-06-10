@@ -1,7 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, View, Text, StyleSheet, Image, ScrollView } from 'react-native';
 
-export default function PostCreater({ post, type, onPress }) {
+export default function PostCreater({ post, type, onPress, fundraise }) {
   return (
     <>
       <View style={styles.author}>
@@ -17,6 +17,12 @@ export default function PostCreater({ post, type, onPress }) {
           <Text style={styles.timestamp}>{post.timestamp}</Text>
         </View>
       </View>
+      {fundraise ? 
+      <TouchableOpacity onPress={onPress}>
+        <Text style={styles.title}>{post.title}</Text>
+        </TouchableOpacity>
+        : null
+    }
       {type === 'full' ? (
         <View style={styles.content}>
           <Text>{post.content}</Text>
@@ -39,6 +45,11 @@ const styles = StyleSheet.create({
   },
   timestamp: {
     color: 'grey',
+  },
+  title: {
+    fontWeight: 'bold',
+    fontSize: 30,
+    marginBottom: 15,
   },
   dp: {
     width: 35,

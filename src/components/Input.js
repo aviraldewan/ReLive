@@ -3,13 +3,45 @@ import { StyleSheet, View, TextInput, ScrollView, Image, Text } from 'react-nati
 import * as ImagePicker from 'expo-image-picker';
 import * as MediaLibrary from 'expo-media-library';
 import SpecialButton from './SpecialButton';
+import NumericInput from './NumbericInput';
 import blogs from '../dummy/blog';
 import posts from '../dummy/posts';
+import fundraiser from '../dummy/fundraiser';
+import FundraiserDocuments from './FundraiserDocuments';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 export default function Input({ navigation, route, type }) {
   const [post, setPost] = useState('');
   const [title, setTitle] = useState('');
   const [images, setImages] = useState([]);
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [selectedDate, setSelectedDate] = useState('');
+  const [value, setValue] = useState('');
+
+  const handleTextChange = (text) => {
+    const numericValue = text.replace(/[^0-9]/g, '');
+
+    if (numericValue !== '' && numericValue <= 0) {
+      alert('Fundraising amount must be more than 0');
+      return;
+    }
+
+    setValue(numericValue);
+  };
+
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const handleConfirm = (date) => {
+    setSelectedDate(date.toISOString().split('T')[0]);
+    hideDatePicker();
+  };
+
   const contentPlaceholder = `Write your ${type} post...`;
   const titlePlaceholder = `Enter title for ${type} post...`;
 
@@ -38,14 +70,14 @@ export default function Input({ navigation, route, type }) {
       alert('Sorry, we need camera roll permissions to select images.');
       return;
     }
-  
+
     try {
       const result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsMultipleSelection: true,
         quality: 1,
       });
-  
+
       if (!result.cancelled && result.assets.length > 0) {
         const selectedImages = result.assets.map((asset) => asset.uri);
         setImages(selectedImages);
@@ -57,6 +89,11 @@ export default function Input({ navigation, route, type }) {
   };
 
   const submitPost = () => {
+    if (!value && type === 'Fundraiser') {
+      alert('Please enter a valid amount');
+      return;
+    }
+
     if ((type === 'Blog' || type === 'Fundraiser') && title.trim() === '') {
       alert('Please enter a valid title.');
       return;
@@ -81,8 +118,22 @@ export default function Input({ navigation, route, type }) {
         timestamp: '05/06/23',
       });
     } else if (type === 'Fundraiser') {
-      // Implement logic for fundraiser post
-      return;
+      fundraiser.push({
+        shares: 24,
+        likes: [],
+        user_id: 2,
+        title: title,
+        content: post,
+        goal_amt: value,
+        curr_amt: 200,
+        timestamp: '09/06/23',
+        username: 'testing',
+        dp: '',
+        image: images,
+        donations: [],
+        end: selectedDate,
+        comments: [],
+      });
     } else if (type === 'Community') {
       posts.push({
         user_id: 9,
@@ -106,40 +157,81 @@ export default function Input({ navigation, route, type }) {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      {(type === 'Fundraiser' || type === 'Blog') ? (
+    <View style={styles.container}>
+      <ScrollView
+        style={styles.scrollView}
+        contentContainerStyle={styles.scrollContent}
+      >
+        {type === 'Fundraiser' ? (
+          <>
+            <TextInput
+              style={styles.goal_amt}
+              value={value}
+              placeholder="Enter Goal Amount (in Rs)"
+              onChangeText={handleTextChange}
+              keyboardType="numeric"
+            />
+            <SpecialButton
+              title="Select Date"
+              pressFunction={showDatePicker}
+              color="dodgerblue"
+            />
+            <Text>{selectedDate}</Text>
+            <DateTimePickerModal
+              isVisible={isDatePickerVisible}
+              mode="date"
+              onConfirm={handleConfirm}
+              onCancel={hideDatePicker}
+            />
+          </>
+        ) : null}
+
+        {(type === 'Fundraiser' || type === 'Blog') ? (
+          <TextInput
+            style={styles.titleContainer}
+            value={title}
+            placeholder={titlePlaceholder}
+            onChangeText={titleHandler}
+            multiline={true}
+            scrollEnabled={true}
+          />
+        ) : null}
         <TextInput
-          style={styles.titleContainer}
-          value={title}
-          placeholder={titlePlaceholder}
-          onChangeText={titleHandler}
+          style={styles.post}
+          value={post}
+          placeholder={contentPlaceholder}
+          onChangeText={postHandler}
           multiline={true}
           scrollEnabled={true}
         />
-      ) : null}
-      <TextInput
-        style={styles.post}
-        value={post}
-        placeholder={contentPlaceholder}
-        onChangeText={postHandler}
-        multiline={true}
-        scrollEnabled={true}
-      />
-      {type === 'Fundraiser' || type === 'Community' ? (
-        <>
-        <SpecialButton title="Select Images" pressFunction={selectImages} />
-        <ScrollView contentContainerStyle={styles.imageContainer}>
-  {images.map((imageUri) => (
-    <Image key={imageUri} source={{ uri: imageUri }} style={styles.image} />
-  ))}
-</ScrollView>
-
-        </>
-      ) : null}
+        {type === 'Fundraiser' || type === 'Community' ? (
+          <>
+            <SpecialButton
+              title="Select Images"
+              pressFunction={selectImages}
+            />
+            {images.length ? (
+              <View style={styles.imageContainer}>
+                {images.map((imageUri) => (
+                  <Image
+                    key={imageUri}
+                    style={styles.image}
+                    source={{ uri: imageUri }}
+                  />
+                ))}
+              </View>
+            ) : null}
+          </>
+        ) : null}
+      </ScrollView>
       <View style={styles.postBtn}>
-        <SpecialButton title="Post" pressFunction={submitPost} color="dodgerblue" />
+        <SpecialButton
+          title="Post"
+          pressFunction={submitPost}
+          color="dodgerblue"
+        />
       </View>
-    </ScrollView>
+    </View>
   );
 }
 
@@ -150,12 +242,29 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: '5%',
   },
+  scrollView: {
+    width: '100%',
+  },
+  scrollContent: {
+    flexGrow: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
   imageContainer: {
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     paddingHorizontal: 10,
+  },
+  goal_amt: {
+    height: 40,
+    borderColor: 'dodgerblue',
+    borderWidth: 1,
+    paddingHorizontal: 10,
+    borderRadius: 10,
+    width: '70%',
+    marginBottom: 20,
   },
   image: {
     width: 200,
@@ -174,7 +283,7 @@ const styles = StyleSheet.create({
   },
   post: {
     width: '70%',
-    height: '50%',
+    height: 400,
     borderWidth: 2,
     borderRadius: 10,
     borderColor: 'dodgerblue',
@@ -182,5 +291,13 @@ const styles = StyleSheet.create({
   },
   postBtn: {
     marginTop: '5%',
+  },
+  datePicker: {
+    width: '70%',
+    marginBottom: 20,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: 'dodgerblue',
+    overflow: 'hidden',
   },
 });

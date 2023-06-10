@@ -1,9 +1,20 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
+import FundraiserCover from '../components/FundraiserCover';
+import fundraiser from '../dummy/fundraiser';
 
-export default function Fundraiser() {
+export default function Fundraiser({navigation}) {
+
+  const renderFundraiser = ({item}) => {
+    return <FundraiserCover fundraiser={item} navigation={navigation} />
+  }
+
   return (
     <View style={styles.container}>
-      <Text>Coming Soon...</Text>
+      <FlatList
+        data={fundraiser}
+        renderItem={renderFundraiser}
+        keyExtractor={(fundraiser) => fundraiser.user_id.toString()}
+      />
     </View>
   );
 }
@@ -12,7 +23,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: 'column',
   },
+  
 });
